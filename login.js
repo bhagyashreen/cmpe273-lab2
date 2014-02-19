@@ -38,15 +38,16 @@ Login.prototype.refreshid = function(sessionId) {
         var newsessionId = new Date().getTime();
         var old_name = this.sessionMap[sessionId].name;
         var old_email = this.sessionMap[sessionId].email;
+        
         this.sessionMap[newsessionId]= { name: old_name, email: old_email};
         delete this.sessionMap[sessionId];
 
         //var newsessionId = new Date().getTime();
         //this.sessionMap[newsessionId]= { name: old_name, email: old_email}
-        // response.setHeader('Set-cookie','session_id=' + newSessionId);
-        console.log('logout::' + sessionId);
+        
+        //console.log('logout::' + sessionId);
 
-        console.log('new session id '+ newsessionId + ' for login ::' + old_email);
+        //console.log('new session id '+ newsessionId + ' for login ::' + old_email);
         return newsessionId;
    /*
         * TODO: Remove the given sessionId from the sessionMap

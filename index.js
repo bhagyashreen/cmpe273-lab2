@@ -68,11 +68,11 @@ function del(request, response) {
 function put(request, response) {
         var cookies = request.cookies;
         var sessionId = cookies['session_id'];
-
-        login.refreshid(sessionId);
-       // var newSessionId = login.refreshid(sessionId);
+        console.log(cookies);
+        //login.refreshid(sessionId);
+        var newSessionId = login.refreshid(sessionId);
        // response.end(login.hello(newSID));
-       // response.setHeader('Set-Cookie', 'session_id=' + newSessionId);
+        response.setHeader('Set-Cookie', 'session_id=' + newSessionId);
         console.log("PUT:: Re-generate new seesion_id for the same user");
         // TODO: refresh session id; similar to the post() function
         //response.setHeader('Set-Cookie', 'session_id=' + newSessionId);
