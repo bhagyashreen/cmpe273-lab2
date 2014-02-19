@@ -15,7 +15,7 @@ function main(request, response, next) {
                 case 'GET': get(request, response); break;
                 case 'POST': post(request, response); break;
                 case 'DELETE': del(request, response); break;
-                case 'PUT': post(request, response); break;
+                case 'PUT': put(request, response); break;
         }
 };
 
@@ -40,6 +40,7 @@ function post(request, response) {
         var name = body['name'];
         var email = body ['email'];
         var newSessionId = login.login(name, email);
+
         response.setHeader('Set-Cookie', 'session_id=' + newSessionId);
 
 
@@ -66,21 +67,19 @@ function del(request, response) {
 
 function put(request, response) {
         var cookies = request.cookies;
-        console.log(cookies);
-        if ('session_id' in cookies) {
-        login.logout(cookies['session_id']);
-        var newSID = login.login(name,email);
-        response.end(login.hello(newSID));
-        }
-        else{
-        response.end("Invalid session_id! Please login again\n");
-}
+        var sessionId = cookies['session_id'];
+
+        login.refreshid(sessionId);
+       // var newSessionId = login.refreshid(sessionId);
+       // response.end(login.hello(newSID));
+       // response.setHeader('Set-Cookie', 'session_id=' + newSessionId);
         console.log("PUT:: Re-generate new seesion_id for the same user");
         // TODO: refresh session id; similar to the post() function
-
+        //response.setHeader('Set-Cookie', 'session_id=' + newSessionId);
         response.end("Re-freshed session id\n");
 };
 
 app.listen(8000);
 
 console.log("Node.JS server running at 8000...");
+                                                    
